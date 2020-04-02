@@ -57,9 +57,9 @@ class FileOutlineViewController: NSViewController, NSOutlineViewDataSource, NSOu
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let fileNameNib = NSNib(nibNamed: NSNib.Name(rawValue: "FileName"), bundle: nil)
+        let fileNameNib = NSNib(nibNamed: NSNib.Name("FileName"), bundle: nil)
         self.outlineView.register(fileNameNib!, forIdentifier: NSUserInterfaceItemIdentifier(rawValue: "FileNameCell"))
-        let folderNameNib = NSNib(nibNamed: NSNib.Name(rawValue: "FolderName"), bundle: nil)
+        let folderNameNib = NSNib(nibNamed: NSNib.Name("FolderName"), bundle: nil)
         self.outlineView.register(folderNameNib!, forIdentifier: NSUserInterfaceItemIdentifier(rawValue: "FolderNameCell"))
     }
     

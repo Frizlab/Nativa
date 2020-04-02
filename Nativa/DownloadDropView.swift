@@ -44,7 +44,7 @@ class DownloadDropView: NSView {
     }
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
-        let pboard = sender.draggingPasteboard()
+        let pboard = sender.draggingPasteboard
         guard let files = pboard.propertyList(forType: NSPasteboard.PasteboardType.backwardsCompatibleFileURL) as? [String] else { return [] }
 
         torrentFiles = files.filter{

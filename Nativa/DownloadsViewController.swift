@@ -20,7 +20,7 @@ private enum FilterValue: Int {
     case All = 1001, Downloading = 1002, Seeding = 1003, Paused = 1004
 }
 
-class DownloadsViewController: NSViewController
+class DownloadsViewController: NSViewController, NSMenuItemValidation, NSToolbarItemValidation
 {
     @IBOutlet weak var filterBar: ScopeBar!
     @IBOutlet weak var outlineView: NSOutlineView!
@@ -247,12 +247,11 @@ class DownloadsViewController: NSViewController
         self.uploadSpeed.toolTip = stats.uploadLimited ? "Global upload limit: \(Formatter.string(fromSpeed: stats.maxUploadSpeed)) (Speed Limit)" : "Upload is unlimited"
     }
 
-    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         return outlineView.selectedRowIndexes.count > 0
     }
     
-    
-    override func validateToolbarItem(_ theItem: NSToolbarItem) -> Bool {
+    func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
         return outlineView.selectedRowIndexes.count > 0
     }
     

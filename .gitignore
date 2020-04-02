@@ -1,4 +1,4 @@
 .DS_Store
-xcuserdata
+xcuserdata/
 build
 .vagrant/machines/default/virtualbox

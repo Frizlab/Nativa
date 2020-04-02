@@ -18,7 +18,7 @@ public enum XMLRPCDecoderError: Error {
 //FIXME: replace NSXMLDocument (memory leaks) with libxml2
 //http://www.cocoawithlove.com/2008/10/using-libxml2-for-parsing-and-xpath.html
 public func XMLRPCDecode(_ data: Data) throws -> Any? {
-    let document = try XMLDocument(data: data, options: Int(XMLNode.Options.documentTidyXML.rawValue))
+    let document = try XMLDocument(data: data, options: .documentTidyXML)
     
     
     guard let root = document.rootElement() else {

@@ -91,7 +91,7 @@ class SpeedLimitViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let speedLimitCellNib = NSNib(nibNamed: NSNib.Name(rawValue: "SpeedLimitCell"), bundle: nil)!
+        let speedLimitCellNib = NSNib(nibNamed: NSNib.Name("SpeedLimitCell"), bundle: nil)!
         self.outlineView.register(speedLimitCellNib, forIdentifier: NSUserInterfaceItemIdentifier(rawValue: "DownloadCell"))
         self.outlineView.register(speedLimitCellNib, forIdentifier: NSUserInterfaceItemIdentifier(rawValue: "UploadCell"))
 

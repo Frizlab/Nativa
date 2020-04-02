@@ -23,18 +23,18 @@ extension NSBezierPath {
             for i in 0 ..< numElements {
                 switch element(at: i, associatedPoints: &points) {
                     
-                case .moveToBezierPathElement:
+                case .moveTo:
                     newPath.move(to: points[0])
                     
-                case .lineToBezierPathElement:
+                case .lineTo:
                     newPath.addLine(to: points[0])
                     bDidClosePath = false
                     
-                case .curveToBezierPathElement:
+                case .curveTo:
                     newPath.addCurve(to: points[2], control1: points[0], control2: points[1])
                     bDidClosePath = false
                     
-                case NSBezierPath.ElementType.closePathBezierPathElement:
+                case .closePath:
                     newPath.closeSubpath()
                     bDidClosePath = true
                 }

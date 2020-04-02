@@ -24,7 +24,7 @@ class TCPConnection: NSObject, Connection, StreamDelegate {
     let queue = DispatchQueue(label: "net.ararmzamzam.nativa.helper.TCPConnection")
     let requestSemaphore = DispatchSemaphore(value: 1)
     var timeout: Double = 60
-    var runLoopModes = [RunLoopMode.commonModes.rawValue]
+    var runLoopModes = [RunLoop.Mode.common]
     
     init(host: String, port: UInt16) {
             self.host = host
@@ -50,7 +50,7 @@ class TCPConnection: NSObject, Connection, StreamDelegate {
                 self.stream(self.oStream!, handle: Stream.Event.hasSpaceAvailable)
             }
             else {
-                self.perform(#selector(self.open), on: TCPConnection.networkRequestThread, with: nil, waitUntilDone: false, modes: self.runLoopModes)
+                self.perform(#selector(self.open), on: TCPConnection.networkRequestThread, with: nil, waitUntilDone: false, modes: self.runLoopModes.map{ $0.rawValue })
             }
         }
     }
@@ -63,8 +63,8 @@ class TCPConnection: NSObject, Connection, StreamDelegate {
         
         let runLoop = RunLoop.current
         for runLoopMode in runLoopModes {
-            oStream?.schedule(in: runLoop, forMode: RunLoopMode(rawValue: runLoopMode))
-            iStream?.schedule(in: runLoop, forMode: RunLoopMode(rawValue: runLoopMode))
+            oStream?.schedule(in: runLoop, forMode: runLoopMode)
+            iStream?.schedule(in: runLoop, forMode: runLoopMode)
         }
 
         iStream?.open()
@@ -96,8 +96,8 @@ class TCPConnection: NSObject, Connection, StreamDelegate {
 
         let runLoop = RunLoop.current
         for runLoopMode in runLoopModes {
-            oStream?.remove(from: runLoop, forMode: RunLoopMode(rawValue: runLoopMode))
-            iStream?.remove(from: runLoop, forMode: RunLoopMode(rawValue: runLoopMode))
+            oStream?.remove(from: runLoop, forMode: runLoopMode)
+            iStream?.remove(from: runLoop, forMode: runLoopMode)
         }
         iStream?.close()
         oStream?.close()
@@ -187,7 +187,7 @@ class TCPConnection: NSObject, Connection, StreamDelegate {
             Thread.current.name = "Nativa"
     
             let runLoop = RunLoop.current
-            runLoop.add(NSMachPort(), forMode:RunLoopMode.defaultRunLoopMode)
+            runLoop.add(NSMachPort(), forMode: .default)
             runLoop.run()
         }
     }
